@@ -3,25 +3,27 @@
 #define WRITE_API_KEY "****"
 #define WIFI_SSID "****"
 #define WIFI_PASS "****"
-#define WIFI_RETRY_MAX_COUNT 5
 
 ThingSpeakWriter_asukiaaa channelWriter(WRITE_API_KEY);
 
-void connectWifiIfNotConnected() {
-  uint8_t count = 0;
+void connectWifiIfNotConnected(unsigned long timeoutMs = 10000) {
+  if (WiFi.status() == WL_CONNECTED) {
+    return;
+  }
+  WiFi.begin(WIFI_SSID, WIFI_PASS);
+  uint8_t startAt = millis();
+  Serial.println("Connecting to WiFi.." + String(WiFi.status()));
   while (WiFi.status() != WL_CONNECTED) {
-    delay(2000);
-    Serial.println("Connecting to WiFi.." + String(WiFi.status()));
-    if (count > WIFI_RETRY_MAX_COUNT) {
+    Serial.print(".");
+    if (millis() - startAt > timeoutMs) {
       Serial.println("Cannot connect to WiFi");
       break;
     }
-    ++count;
+    delay(1000);
   }
 }
 
 void setup() {
-  WiFi.begin(WIFI_SSID, WIFI_PASS);
 }
 
 void loop() {
