@@ -24,11 +24,19 @@ void connectWifiIfNotConnected(unsigned long timeoutMs = 10000) {
 }
 
 void setup() {
+  Serial.begin(115200);
 }
 
 void loop() {
   connectWifiIfNotConnected();
   channelWriter.setField(1, String(millis()));
-  channelWriter.writeFields();
+  int result = channelWriter.writeFields();
+  if (result < 0) {
+    Serial.println("Failed to send data");
+  } else if (result != 200) {
+    Serial.println("Sent data but failed at status code: " + String(result));
+  } else {
+    Serial.println("Succeeded in sending data.");
+  }
   delay(10000);
 }
