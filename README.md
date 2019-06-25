@@ -6,7 +6,7 @@ I know the presence of [official library](https://github.com/mathworks/thingspea
 
 # Usage
 
-See [an example project](./examples/WriteValues/WriteValues.ino).
+See [an example project](./examples/WriteFields/WriteFields.ino).
 
 # License
 
