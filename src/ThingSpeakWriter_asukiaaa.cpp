@@ -17,7 +17,7 @@ void ThingSpeakWriter_asukiaaa::setCreatedAt(String createdAt) {
 }
 
 int ThingSpeakWriter_asukiaaa::writeFields() {
-  String url = String("http://") + ThingSpeakHost + "/update?apk_key=" + writeApiKey;
+  String url = String("http://") + ThingSpeakHost + "/update?api_key=" + writeApiKey;
   for (uint8_t i = 0; i < THINGSPEAK_FIELD_LEN; ++i) {
     String v = fieldValues[i];
     if (v == "") continue;
